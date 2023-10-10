@@ -1,0 +1,56 @@
+<div class="container-fluid search-filters-container mb-3">
+    <div class="row justify-content-between">
+        <div class="col-md-3 mb-md-1">
+            <div class="form-group position-relative">
+                <label for="search" ng-class="{ 'bg-dark text-alert': dark, 'bg-white text-muted': !dark }" class="form-label" style="position: absolute; top: -1rem; left: 0.5rem; padding: 0 4px;">
+                    <ion-icon name="search-outline"></ion-icon>Search for a country
+                </label>
+                <input ng-class="{ 'bg-dark text-white': dark, 'bg-white text-muted': !dark }" id="search" type="text" class="form-control" ng-model="searchTerm">
+            </div>
+
+        </div>
+        <div class="col-md-2">
+            <div class="form-group position-relative">
+                <label for="sort" ng-class="{ 'bg-dark text-alert': dark, 'bg-white text-muted': !dark }" class="form-label" style="position: absolute; top: -1rem; left: 0.5rem;  padding: 0 4px;">
+                    <ion-icon name="chevron-collapse-outline"></ion-icon>Sort by
+                </label>
+                <select id="sort" ng-class="{ 'bg-dark text-white': dark, 'bg-white text-muted': !dark }" class="form-select" ng-model="sortOption" ng-change="updateSort()">
+                    <option value="name">Name (Asc)</option>
+                    <option value="-name">Name (Desc)</option>
+                    <option value="population">Population (Asc)</option>
+                    <option value="-population">Population (Desc)</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group position-relative">
+                <label for="region" ng-class="{ 'bg-dark text-white': dark, 'bg-white text-muted': !dark }" class="form-label" style="position: absolute; top: -1rem; left: 0.5rem; padding: 0 4px;">
+                    <ion-icon name="funnel-outline"></ion-icon>Filter by Region
+                </label>
+                <select id="region" ng-class="{ 'bg-dark text-white': dark, 'bg-white text-muted': !dark }" class="form-select" ng-model="selectedRegion">
+                    <option value=""></option>
+                    <option ng-repeat="continent in continents | orderBy:'toString()'" value="{{continent}}">{{continent}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="body" class="container-fluid" ng-controller="myController">
+    <div class="row justify-content-center">
+        <div ng-repeat="country in filteredCountries | orderBy:sortOption" ng-class="{ 'bg-dark text-white': dark, 'bg-light text-muted': !dark }" class="col-md-2 my-3 mx-3 country rounded shadow" ng-if="filteredCountries.length > 0">
+            <a ng-click="viewCountry(country.alpha3Code)">
+                <img class="flag" src="{{ country.flags.png }}" />
+                <div class="p-3">
+                    <b class="mb-0 h2" ng-class="{ 'text-white': dark, 'text-dark': !dark }">{{ country.name }}</b>
+                    <div><p ng-class="{ 'text-white': dark, 'text-dark': !dark }" class=" mb-0"><span class="fw-bold">Population : </span>{{ country.population | number }}</p></div>
+                    <div><p ng-class="{ 'text-white': dark, 'text-dark': !dark }" class=" mb-0"><span class="fw-bold">Region : </span>{{ country.region }}</p></div>
+                    <div><p ng-class="{ 'text-white': dark, 'text-dark': !dark }" class=" mb-0"><span class="fw-bold">Capital : </span>{{ country.capital }}</p></div>
+                </div>
+            </a>
+        </div>
+        <div class="col-12 text-center" ng-if="filteredCountries.length === 0">
+            Aucun résultat pour cette recherche.
+        </div>
+    </div>
+</div>

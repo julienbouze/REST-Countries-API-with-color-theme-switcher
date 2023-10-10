@@ -1,0 +1,36 @@
+.flag {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    margin: 0;
+}
+
+.country{
+    overflow:hidden;
+    opacity : 0.8;
+    transition: transform .4s;
+    padding :0;
+    cursor : pointer;
+}
+
+.country:hover{
+    transform: scale(1.2);
+    opacity : 1;
+
+}
+ion-icon{
+    font-size: x-small;
+    margin-right : 5px;
+}
+body {
+    background-attachment : fixed;
+        background-position: center;
+        background-size: cover;
+}
+.white{
+    background-image: url(images/map.svg);
+
+}
+.dark{
+    background-image: url(images/map2.svg);
+}
